@@ -44,5 +44,16 @@ public class BookService {
 		
 		return false;
 	}
+	
+	public Book update(Long id, Book book) {
+		Book newBook = repository.findById(id).get();
+		
+		newBook.setName(book.getName());
+		newBook.setAuthor(book.getAuthor());
+		newBook.setPages(book.getPages());
+		newBook.setGenres(book.getGenres());
+		
+		return repository.save(newBook);
+	}
 
 }
