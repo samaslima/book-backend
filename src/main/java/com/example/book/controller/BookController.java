@@ -1,6 +1,7 @@
 package com.example.book.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -43,20 +44,32 @@ public class BookController {
 		return ResponseEntity.ok().body(book);
 	}
 	
-	@PutMapping
-	public ResponseEntity<Book> update(@Valid @PathVariable Long id, @RequestBody Book book) {
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Book> update(@Valid @PathVariable String id, @RequestBody Book book) {
 		book = service.update(id, book);
 		
 		return ResponseEntity.ok().body(book);
 	}
 	
-	@DeleteMapping
-	public ResponseEntity<Boolean> delete(@Valid @PathVariable Long id) {
-		boolean delete = service.delete(id);
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<List<Book>> delete(@Valid @PathVariable String id) {
+		List<Book> books = service.delete(id);
 		
-		return ResponseEntity.ok().body(delete);
+		return ResponseEntity.ok().body(books);
 	}
 	
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<Optional<Book>> findById(@Valid @PathVariable String id) {
+		Optional<Book> book = service.findById(id);
+		
+		return ResponseEntity.ok().body(book);
+	}
 	
+	@GetMapping(value = "/find/{name}")
+	public ResponseEntity<Book> findByName(@Valid @PathVariable String name) {
+		Book book = service.findByName(name);
+		
+		return ResponseEntity.ok().body(book);
+	}
 
 }

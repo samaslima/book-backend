@@ -27,7 +27,7 @@ public class BookService {
 		return repository.save(book);
 	}
 	
-	public Optional<Book> findById(Long id) {
+	public Optional<Book> findById(String id) {
 		return repository.findById(id);
 	}
 	
@@ -35,17 +35,15 @@ public class BookService {
 		return repository.findByName(name);
 	}
 	
-	public boolean delete(Long id) {
+	public List<Book> delete(String id) {
 		if (repository.findById(id) != null) {
 			repository.deleteById(id);
-			
-			return true;
 		}
 		
-		return false;
+		return this.findAll();
 	}
 	
-	public Book update(Long id, Book book) {
+	public Book update(String id, Book book) {
 		Book newBook = repository.findById(id).get();
 		
 		newBook.setName(book.getName());

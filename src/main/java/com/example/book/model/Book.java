@@ -3,22 +3,19 @@ package com.example.book.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "books")
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = -6825553722851212683L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private String id;
 
 	@NotEmpty(message = "The name in the book is required.")
 	private String name;
@@ -26,16 +23,16 @@ public class Book implements Serializable {
 	@NotEmpty(message = "The author in the book is required.")
 	private String author;
 
-	@NotEmpty(message = "The number of pages in the book is required.")
+	@NotNull(message = "The number of pages in the book is required.")
 	private Integer pages;
 
 	private List<Genre> genres;
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
